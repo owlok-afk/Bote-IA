@@ -119,8 +119,8 @@ El modelo **Qwen3-VL** analiza la imagen y devuelve la clasificación.
 
 El modelo recibe la imagen y responde con:
 
-- Organico  
-- Inorganico  
+- Orgánico  
+- Inorgánico  
 
 ---
 
@@ -129,17 +129,17 @@ El modelo recibe la imagen y responde con:
 ```
 Eres un clasificador de residuos. Analiza la imagen y responde SOLO con una palabra.
 
-EJEMPLOS DE ORGANICO (responde: organico):
-- cascara de platano, naranja, mango, limon
+EJEMPLOS DE ORGÁNICO (responde: organico):
+- cáscara de plátano, naranja, mango, limón
 - fruta entera o mordida
 - restos de comida, semillas, huesos
 
-EJEMPLOS DE INORGANICO (responde: inorganico):
-- botella de plastico (agua, refresco, jugo)
+EJEMPLOS DE INORGÁNICO (responde: inorganico):
+- botella de plástico (agua, refresco, jugo)
 - botella de vidrio
-- bolsa de plastico
+- bolsa de plástico
 - lata de metal
-- carton o papel
+- cartón o papel
 ```
 
 ---
