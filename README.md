@@ -4,14 +4,13 @@
 
 **Sistema automático de separación de residuos orgánicos e inorgánicos usando inteligencia artificial, Arduino y un modelo de IA local**
 
-
 </div>
 
 ---
 
 ## Descripción del proyecto
 
-Este proyecto implementa **varios elementos básicos** modificados para que sean capaces de **detectar, analizar y clasificar residuos automáticamente** en:
+Este proyecto implementa **varios elementos básicos**, modificados para que sean capaces de **detectar, analizar y clasificar residuos automáticamente** en:
 
 - Orgánicos  
 - Inorgánicos  
@@ -20,7 +19,7 @@ El sistema utiliza una **cámara web**, un **modelo de visión artificial ejecut
 
 El flujo es completamente automático:
 1. Se detecta movimiento (objeto presente)
-2. Se captura imagen
+2. Se captura la imagen
 3. La IA analiza el tipo de residuo
 4. Se mueve el servo según el resultado
 
@@ -28,10 +27,10 @@ El flujo es completamente automático:
 
 ## Características principales
 
-- Clasificación automática de residuos
-- IA local (sin internet)
-- Comunicación Arduino y Python por serial
-- Control mediante servidor MCP (FastMCP)
+- Clasificación automática de residuos  
+- IA local (sin internet)  
+- Comunicación entre Arduino y Python por serial  
+- Control mediante servidor MCP (FastMCP)  
 
 ---
 
@@ -40,7 +39,7 @@ El flujo es completamente automático:
 | Componente | Función |
 |:--|:--|
 | Arduino Mega 2560 | Control del servomotor |
-| Servomotor | Movimiento de compuerta del bote |
+| Servomotor | Movimiento de la compuerta del bote |
 | Webcam USB | Captura de imágenes |
 | Bote de basura | Estructura física del sistema |
 
@@ -56,7 +55,7 @@ El flujo es completamente automático:
 
 ---
 
-## Flujo del Sistema
+## Flujo del sistema
 
 ```mermaid
 flowchart TD
@@ -68,22 +67,27 @@ flowchart TD
     E --> F{"Resultado"}
     F -- Orgánico --> G["Servo → 180°"]
     F -- Inorgánico --> H["Servo → 0°"]
-    F -- Desconocido --> I["No acción"]
+    F -- Desconocido --> I["Sin acción"]
     G --> J["Regresar servo a 90°"]
     H --> J
     I --> B
     J --> B
 ```
+
+---
+
 ## Fotografía de la maqueta
 
 <div align="center">
-
-<img src="maqueta.jpeg" alt="Maqueta del sistema" width="400"/>
-
+  <img src="maqueta.jpeg" alt="Maqueta del sistema" width="400"/>
 </div>
 
+---
+
 ## Detección de objetos
-El sistema detecta objetos usando diferencia de fondo:
+
+El sistema detecta objetos utilizando diferencia de fondo:
+
 ```python
 diff = cv2.absdiff(frame, fondo)
 gray = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
@@ -91,23 +95,37 @@ _, th = cv2.threshold(gray, 25, 255, cv2.THRESH_BINARY)
 
 return th.sum() > 3000000
 ```
+
+---
+
 ## Tools
+
 | Tool | Descripción |
 |:--|:--|
 | `iniciar_sistema()` | Activa el sistema completo, permitiendo la detección, análisis y clasificación automática de objetos |
-| `detener_sistema()` | Detiene completamente el sistema, pausando la cámara, IA y movimiento del servo |
+| `detener_sistema()` | Detiene completamente el sistema, pausando la cámara, la IA y el movimiento del servo |
 | `angulo_actual()` | Devuelve el ángulo actual del servomotor para conocer su posición |
-| `vacio()` | Giraba el servo por 180 grados y se detiene por 10 segundos |
+| `vacio()` | Gira el servo a 180°, espera 10 segundos, luego gira a 0° y finalmente regresa a su posición original |
+
+---
 
 ## Modelo implementado
-El modelo Qwen3-VL analiza la imagen y devuelve la clasificación.
+
+El modelo **Qwen3-VL** analiza la imagen y devuelve la clasificación.
+
+---
 
 ## Clasificación con IA
+
 El modelo recibe la imagen y responde con:
-- Organico
-- Inorganico
+
+- Organico  
+- Inorganico  
+
+---
 
 ## Prompt utilizado
+
 ```
 Eres un clasificador de residuos. Analiza la imagen y responde SOLO con una palabra.
 
@@ -124,15 +142,25 @@ EJEMPLOS DE INORGANICO (responde: inorganico):
 - carton o papel
 ```
 
-## Comunicacion con Arduino
-El control del servo se hace enviando la señal por serial.
+---
+
+## Comunicación con Arduino
+
+El control del servo se realiza enviando la señal por serial:
+
 ```python
 arduino.write(f"{angulo}\n".encode())
 ```
-## Comunicacion con el modelo IA
+
+---
+
+## Comunicación con el modelo de IA
+
 ```python
 requests.post("http://localhost:1234/v1/chat/completions")
 ```
+
+---
 ## Estructura del proyecto
 ```
 Proyecto_bote_IA/
