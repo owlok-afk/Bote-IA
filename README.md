@@ -1,6 +1,6 @@
 <div align="center">
 
-# Clasificador Inteligente de Basura con IA
+# Clasificador inteligente de basura con IA
 
 **Sistema automático de separación de residuos orgánicos e inorgánicos usando inteligencia artificial, Arduino y un modelo de IA local**
 
@@ -9,9 +9,9 @@
 
 ---
 
-## Descripción del Proyecto
+## Descripción del proyecto
 
-Este proyecto implementa un **varios elementos basicos** modificados para que sean capaces de **detectar, analizar y clasificar residuos automáticamente** e:
+Este proyecto implementa **varios elementos basicos** modificados para que sean capaces de **detectar, analizar y clasificar residuos automáticamente**:
 
 - Orgánicos  
 - Inorgánicos  
@@ -26,22 +26,20 @@ El flujo es completamente automático:
 
 ---
 
-## Características Principales
+## Características principales
 
 - Clasificación automática de residuos
 - IA local (sin internet)
-- Detección por movimiento (sin sensores físicos)
-- Validación doble para mayor precisión
-- Comunicación Arduino ↔ Python por Serial
+- Comunicación Arduino y Python por serial
 - Control mediante servidor MCP (FastMCP)
 
 ---
 
-## Hardware Utilizado
+## Hardware utilizado
 
 | Componente | Función |
 |:--|:--|
-| Arduino UNO | Control del servomotor |
+| Arduino Mega 2560 | Control del servomotor |
 | Servomotor | Movimiento de compuerta del bote |
 | Webcam USB | Captura de imágenes |
 | Bote de basura | Estructura física del sistema |
