@@ -135,9 +135,31 @@ requests.post("http://localhost:1234/v1/chat/completions")
 ```
 ## Estructura del proyecto
 ```
-├── arduino.ino
-├── detector.py
+Proyecto_bote_IA/
+│
+├── __pycache__/
+├── .gitattributes
+├── .venv/
+├── Labels.txt.txt
+├── camera.py
+├── frame.jpg
+├── maqueta.jpeg
 ├── server.py
-├── test_ia.py
-└── README.md
+├── test.py
+├── yolov8n.pt
+│
+├── arduino_/
+│   └── arduino.ino
+│
+├── README.md
+└── maqueta.jpeg
 ```
+
+### Desarrolladores
+
+- **Lizeth Moreno Piña**
+
+- **Alejandro Sánchez García**
+
+- **Jesús Martínez Narciso**
+</div>
