@@ -97,7 +97,7 @@ return th.sum() > 3000000
 | `iniciar_sistema()` | Activa el sistema completo, permitiendo la detección, análisis y clasificación automática de objetos |
 | `detener_sistema()` | Detiene completamente el sistema, pausando la cámara, IA y movimiento del servo |
 | `angulo_actual()` | Devuelve el ángulo actual del servomotor para conocer su posición |
-| `vacio()` | No realiza ninguna acción |
+| `vacio()` | Giraba el servo por 180 grados y se detiene por 10 segundos |
 
 ## Modelo implementado
 El modelo Qwen3-VL analiza la imagen y devuelve la clasificación.
@@ -138,19 +138,18 @@ requests.post("http://localhost:1234/v1/chat/completions")
 Proyecto_bote_IA/
 │
 ├── __pycache__/
-├── .gitattributes
-├── .venv/
-├── Labels.txt.txt
-├── camera.py
-├── frame.jpg
-├── maqueta.jpeg
-├── server.py
-├── test.py
-├── yolov8n.pt
+    ├── .gitattributes
+    ├── .venv/
+    ├── Labels.txt.txt
+    ├── camera.py
+    ├── frame.jpg
+    ├── maqueta.jpeg
+    ├── server.py
+    ├── test.py
+    ├── yolov8n.pt
 │
 ├── arduino_/
 │   └── arduino.ino
-│
 ├── README.md
 └── maqueta.jpeg
 ```
