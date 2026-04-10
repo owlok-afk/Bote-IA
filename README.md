@@ -11,7 +11,7 @@
 
 ## Descripción del proyecto
 
-Este proyecto implementa **varios elementos basicos** modificados para que sean capaces de **detectar, analizar y clasificar residuos automáticamente**:
+Este proyecto implementa **varios elementos básicos** modificados para que sean capaces de **detectar, analizar y clasificar residuos automáticamente** en:
 
 - Orgánicos  
 - Inorgánicos  
@@ -74,6 +74,7 @@ flowchart TD
     I --> B
     J --> B
 ```
+## Fotografía de la maqueta
 
 ## Detección de objetos
 El sistema detecta objetos usando diferencia de fondo:
@@ -84,6 +85,17 @@ _, th = cv2.threshold(gray, 25, 255, cv2.THRESH_BINARY)
 
 return th.sum() > 3000000
 ```
+## Tools
+| Tool | Descripción |
+|:--|:--|
+| `iniciar_sistema()` | Activa el sistema completo, permitiendo la detección, análisis y clasificación automática de objetos |
+| `detener_sistema()` | Detiene completamente el sistema, pausando la cámara, IA y movimiento del servo |
+| `angulo_actual()` | Devuelve el ángulo actual del servomotor para conocer su posición |
+| `vacio()` | No realiza ninguna acción |
+
+## Modelo implementado
+El modelo Qwen3-VL analiza la imagen y devuelve la clasificación.
+
 ## Clasificación con IA
 El modelo recibe la imagen y responde con:
 - Organico
