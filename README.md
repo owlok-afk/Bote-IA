@@ -76,6 +76,12 @@ flowchart TD
 ```
 ## Fotografía de la maqueta
 
+<div align="center">
+
+<img src="maqueta.jpeg" alt="Maqueta del sistema" width="400"/>
+
+</div>
+
 ## Detección de objetos
 El sistema detecta objetos usando diferencia de fondo:
 ```python
