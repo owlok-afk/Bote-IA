@@ -160,6 +160,57 @@ arduino.write(f"{angulo}\n".encode())
 requests.post("http://localhost:1234/v1/chat/completions")
 ```
 
+## Implementación de arquitectura tipo agente
+El sistema funciona como un agente inteligente.
+
+¿Qué significa?
+
+La IA:
+- analiza 
+- toma decisiones 
+- ejecuta acciones 
+- puede volver a intentar
+
+Importancia
+
+Hace que el sistema sea más inteligente y autónomo.
+
+---
+## Implementación de persistencia de conexión 
+La cámara y la conexión serial permanecen abiertas constantemente.
+
+Importancia
+
+Mejora:
+- velocidad
+- estabilidad
+- tiempo de respuesta
+
+---
+## Implementación de optimización 
+Se implementaron mejoras para procesar imágenes más rápido.
+
+Mejoras:
+- reducción de tamaño
+- compresión
+- optimización de captura 
+Importancia
+
+Aumenta la velocidad y reduce el consumo de recursos.
+---
+## Implementación de función vaciado
+¿Qué hace?
+
+El servo:
+- gira hacia un lado
+- espera
+- gira al otro lado
+- regresa al centro 
+
+Importancia
+
+Facilita el mantenimiento del sistema.
+
 ---
 ## Estructura del proyecto
 ```
