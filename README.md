@@ -79,7 +79,7 @@ flowchart TD
 ## Fotografía de la maqueta
 
 <div align="center">
-  <img src="maqueta.jpeg" alt="Maqueta del sistema" width="400"/>
+  <img src="boteia.jpeg" alt="Maqueta del sistema" width="400"/>
 </div>
 
 ---
