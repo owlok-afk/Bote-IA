@@ -6,7 +6,9 @@ import serial
 import time
 import threading
 
+# ======================
 # MCP APP
+# ======================
 
 app = FastMCP(
     name="Bote IA",
@@ -16,9 +18,6 @@ iniciar sistema
 
 El sistema SOLO se detiene cuando el usuario diga:
 detener sistema
-
-# Para vaciar el bote el usuario debe decir:  (funcionalidad desactivada temporalmente)
-# vaciar bote
 """
 )
 
@@ -26,7 +25,9 @@ app.enable_tools = True
 app.enable_auto_tool_choice = True
 app.enable_tool_use = True
 
+# ======================
 # CONFIG
+# ======================
 
 LM_URL = "http://localhost:1234/v1/chat/completions"
 MODEL_NAME = "qwen/qwen3-vl-4b"
@@ -35,13 +36,13 @@ SERIAL_PORT = "COM3"
 BAUDRATE = 9600
 CAMERA_INDEX = 0
 
+# ======================
 # ESTADO
+# ======================
 
 sistema_activo = False
 procesando_objeto = False
 ultimo_procesamiento = 0
-# vaciando = False  # (vaciado desactivado temporalmente)
-vaciando = False  # mantenido como False fijo para no romper referencias
 
 frame_actual = None
 lock_frame = threading.Lock()
@@ -53,7 +54,9 @@ lock_serial = threading.Lock()
 
 camara = None
 
+# ======================
 # SERIAL
+# ======================
 
 def iniciar_serial():
     global arduino
@@ -80,7 +83,9 @@ def mover_servo(angulo):
         except:
             print("Error servo")
 
+# ======================
 # CAMARA
+# ======================
 
 def iniciar_camara():
     global camara
@@ -101,7 +106,7 @@ def loop_camara():
 
     while True:
 
-        if sistema_activo and not vaciando: 
+        if sistema_activo:
             ret, frame = cap.read()
 
             if ret:
@@ -110,7 +115,9 @@ def loop_camara():
 
         time.sleep(0.03)
 
+# ======================
 # MOVIMIENTO
+# ======================
 
 detector = cv2.createBackgroundSubtractorMOG2(
     history=200,
@@ -122,8 +129,9 @@ def detectar_movimiento(frame):
     mascara = detector.apply(frame)
     return cv2.countNonZero(mascara) > 1500
 
+# ======================
 # RESET DETECTOR
-
+# ======================
 
 def reiniciar_detector():
     global detector
@@ -136,8 +144,9 @@ def reiniciar_detector():
 
     print("Detector reiniciado")
 
-# IA - PROMPT 
-
+# ======================
+# IA - PROMPT FEW-SHOT ESPECIFICO
+# ======================
 
 PROMPT = """Eres un clasificador de residuos. Analiza la imagen y responde SOLO con una palabra.
 
@@ -203,7 +212,9 @@ def analizar_imagen(frame):
         print("Error IA:", e)
         return "error"
 
+# ======================
 # DOBLE VERIFICACION
+# ======================
 
 def decision_final():
 
@@ -232,7 +243,9 @@ def decision_final():
 
     return "desconocido"
 
+# ======================
 # LOOP IA
+# ======================
 
 def loop_ia():
 
@@ -240,8 +253,8 @@ def loop_ia():
 
     while True:
 
-        if not sistema_activo or vaciando:  # <-- PAUSAR SI VACIANDO
-            time.sleep(0.2)
+        if not sistema_activo:
+            time.sleep(2)
             continue
 
         if procesando_objeto:
@@ -285,41 +298,9 @@ def loop_ia():
 
         time.sleep(0.3)
 
-# === VACIADO (desactivado temporalmente) ===
-
-# def secuencia_vaciado():
-#     global vaciando, procesando_objeto
-#
-#     print("Iniciando vaciado...")
-#
-#     # Esperar a que termine si hay un objeto siendo procesado
-#     while procesando_objeto:
-#         time.sleep(0.2)
-#
-#     vaciando = True
-#
-#     # Abrir compuerta: servo a 180
-#     print("Vaciando: servo -> 180")
-#     mover_servo(180)
-#
-#     # Mantener abierto 10 segundos para sacar la basura
-#     time.sleep(10)
-#
-#     # Cerrar compuerta: servo a 0
-#     print("Vaciando: servo -> 0")
-#     mover_servo(0)
-#
-#     # Esperar otros 10 segundos en posicion cerrada
-#     time.sleep(10)
-#
-#     # Regresar al centro y reanudar operacion normal
-#     mover_servo(90)
-#     reiniciar_detector()
-#
-#     vaciando = False
-#     print("Vaciado completo, sistema reanudado")
-
+# ======================
 # TOOLS MCP
+# ======================
 
 @app.tool
 def iniciar_sistema():
@@ -337,24 +318,16 @@ def detener_sistema():
 def angulo_actual():
     return f"Angulo actual {angulo_servo_actual}"
 
-# @app.tool  (vaciado desactivado temporalmente)
-# def vaciar():
-#     """Vacia el bote: pausa la camara, abre la compuerta 10s, cierra 10s y reanuda."""
-#     if vaciando:
-#         return "El bote ya se esta vaciando, espera a que termine"
-#
-#     threading.Thread(target=secuencia_vaciado, daemon=True).start()
-#     return "Vaciado iniciado: servo a 180° por 10s, luego 0° por 10s, despues regresa a operacion normal"
-
-
+# ======================
 # HILOS
+# ======================
 
 def iniciar_hilos():
 
     iniciar_serial()
 
-    threading.Thread(target=loop_camara, daemon=True).start()
-    threading.Thread(target=loop_ia, daemon=True).start()
+    threading.Thread(target=loop_camara,daemon=True).start()
+    threading.Thread(target=loop_ia,daemon=True).start()
 
     print("Sistema listo")
 
